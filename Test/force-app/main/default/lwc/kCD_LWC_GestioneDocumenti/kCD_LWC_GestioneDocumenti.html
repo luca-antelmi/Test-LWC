@@ -1,0 +1,119 @@
+<template>
+  <article class="slds-card ">
+    <div class="slds-card__header slds-grid testa">
+      <header class="slds-media slds-media_center slds-has-flexi-truncate misura">
+
+
+        <!-- <div class="demo-only demo-only--sizing slds-grid slds-wrap">
+
+              <h2 class="slds-size_1-of-3">{label.CreateDate}:</h2>
+              <p class="slds-size_1-of-2"><lightning-formatted-date-time value={cnt.ECU_Created_Date__c} year="numeric" month="numeric" day="numeric"></lightning-formatted-date-time></p>
+          </div> -->
+
+
+        <div class="slds-card__header prova ">
+
+          <lightning-icon class="icona" icon-name="standard:document" alternative-text="Documents" title="Documents">
+
+          </lightning-icon>
+          <p class="scritto">Documenti</p>
+          <lightning-input class="Data" type="date" name="input1" label="Seleziona data:" onchange={changeDate}>
+          </lightning-input>
+
+          <div class="bottone1">
+            <lightning-input type="file" label="" accept=".pdf" onchange={uploadFile}>
+            </lightning-input>
+          </div>
+        </div>
+
+      </header>
+    </div>
+    <div class="slds-card__body slds-card__body_inner">
+      <div class="body">
+        <p class="slds-p-horizontal_small">Elenco File </p>
+        <template if:true={documentsRepo}>
+          <template for:each={documentsRepo.documents} for:item="item">
+            <li key={item.description}>
+              {item.agreementId}:
+              {item.description}
+              <!-- <lightning-button-icon icon-name="utility:open" alternative-text="View Document" class="slds-m-left_xx-small"
+                title="View Document" value={item.document} onclick={openDocument}></lightning-button-icon> -->
+
+                <!-- <lightning-button-icon icon-name="utility:delete" alternative-text="Delete Document" class="slds-m-left_xx-small"
+                title="Delete document" value={item.insertionDate} onclick={dismissDocument}></lightning-button-icon>  -->
+
+                  
+
+                   
+                      <!-- <lightning-button-menu alternative-text="Show menu">
+                          <lightning-menu-item label="Menu Item One" value="item1"></lightning-menu-item>
+                          <lightning-menu-item label="Menu Item Two" value="item2"></lightning-menu-item>
+                          <lightning-menu-item label="Menu Item Three" value="item3"></lightning-menu-item>
+                    </lightning-button-menu> -->
+
+                    
+                      <!-- <lightning-button-menu alternative-text="Show menu" >
+                          <lightning-menu-item value={item.insertionDate} label="Elimina" onclick={dismissDocument}> </lightning-menu-item>
+                          <lightning-menu-item value={item.document} label="Visualizza" onclick={openDocument}> </lightning-menu-item>
+                         
+                      </lightning-button-menu> -->
+                  
+                     
+                      <lightning-button-menu alternative-text="Show menu" icon-name="utility:settings" class="icona"  >
+                        
+                        <lightning-menu-item label="Elimina" icon-name="utility:delete" value={item.insertionDate} onclick={dismissDocument}></lightning-menu-item>
+                        <lightning-menu-item label="Visualizza" icon-name="utility:edit" value={item.document} onclick={openDocument}></lightning-menu-item>
+                        
+                     </lightning-button-menu>
+                    
+
+
+
+                <!-- <div class="slds-button-group" role="group">
+                  <button class="slds-button slds-button_brand">Save</button>
+                  <div class="slds-dropdown-trigger slds-dropdown-trigger_click slds-button_last">
+                    <button class="slds-button slds-button_icon slds-button_icon-brand" aria-haspopup="true" title="More Actions">
+                      <svg class="slds-button__icon" aria-hidden="true">
+                        <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#down"></use>
+                      </svg>
+                      <span class="slds-assistive-text">More Actions</span>
+                    </button>
+                  </div>
+                </div> -->
+            </li>
+          </template>
+        </template>
+      </div>
+    </div>
+
+  </article>
+
+  <template if:true={showPDF}>
+
+    <section style="min-height:600px;" role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+      aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal_large">
+      <div class="slds-modal__container">
+        <header class="slds-modal__header">
+          <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close">
+            <svg class="slds-button__icon slds-button__icon_large" aria-hidden="true">
+              <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#close"></use>
+            </svg>
+            <span class="slds-assistive-text">Close</span>
+          </button>
+          <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Download PDF</h2>
+          <p class="slds-m-top_x-small">
+          </p>
+        </header>
+        <div class="slds-modal__content slds-p-around_medium modal " id="modal-content-id-1">
+          <iframe src={blobURL} class="modal"></iframe>
+        </div>
+        <footer class="slds-modal__footer">
+          <lightning-button label="Cancel" onclick={closeModalPDF} class="slds-m-left_x-small"></lightning-button>
+
+        </footer>
+      </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+
+  </template>
+</template>

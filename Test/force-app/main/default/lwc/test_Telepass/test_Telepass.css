@@ -1,0 +1,36 @@
+.Data{
+    padding-top: 2%;
+    float: right;
+    top : -13%;
+    padding-right: 0%;
+    width: 30%;
+    padding-top : 15%
+}
+
+.data1{
+    font-size: small;
+   font-weight: bold;
+text-align: initial;    
+background-color:#EEE5DE;
+width: 100%;
+padding-top: 1.5%;
+float: right;
+position: relative;
+padding-left: 1%;
+padding-right: 10%;
+bottom: 100%;
+top: 0%;
+height: 0%;
+padding-bottom: -100%;
+}
+
+.data{
+    top: -10%;
+}
+.body{
+    background-color: white;
+}
+.bottone1{
+    width: -100%;
+    float: left;
+}

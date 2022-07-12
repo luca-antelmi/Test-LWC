@@ -1,0 +1,105 @@
+<template>
+
+    <div class="c-container">
+        <lightning-layout multiple-rows="true">
+            <lightning-layout-item padding="around-small" size="12">
+                <div class="page-section page-header">
+                    <h2>
+                        <lightning-icon icon-name="standard:document" alternative-text="New note" title="Documents">
+                        </lightning-icon> Documenti
+
+                        <div>
+                            <lightning-input type="file" label="Carica un documento" accept=".pdf"
+                                onchange={uploadFile}>
+                            </lightning-input>
+
+                            <template if:true={insertResult}>
+                                <h1>{insertResult.agreementId}</h1>
+                            </template>
+                            <template if:true={dateToSearch}>
+                                <h1>{dateToSearch}</h1>
+                            </template>
+                        </div>
+                    </h2>
+
+                </div>
+            </lightning-layout-item>
+
+            <div>
+                <template if:true={agreementId}>
+                    <div class="slds-m-around_medium">
+                        <p>Contact Id: {agreementId}</p>
+                    </div>
+                </template>
+            </div>
+
+            <div class="page-main">
+                <h2>Data Documenti</h2>
+
+                <lightning-input type="date" name="input1" label="Seleziona data:" onchange={changeDate}>
+                </lightning-input>
+            </div>
+
+
+            <lightning-layout-item padding="around-small" size="12">
+                <lightning-layout>
+                    <lightning-layout-item padding="around-small" size="3">
+                        <div class="page-section page-right">
+                            <h2>Elenco File</h2>
+                            <template if:true={documentsRepo}>
+                                <template for:each={documentsRepo.documents} for:item="item">
+                                    <li key={item.description}>
+                                        {item.agreementId}:
+                                        {item.description}
+                                        <lightning-button-icon icon-name="utility:save" alternative-text="Save"
+                                            class="slds-m-left_xx-small" title="Save" value={item.document}
+                                            onclick={openDocument}></lightning-button-icon>
+                                    </li>
+                                </template>
+                            </template>
+                            <!-- <template if:true={showPDF}>
+                                <iframe src={blobURL}
+                                    style="position:absolute; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;"></iframe>
+                        </div>
+</template> -->
+
+                            <template if:true={showPDF}>
+                                <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01"
+                                    aria-modal="true" aria-describedby="modal-content-id-1"
+                                    class="slds-modal slds-fade-in-open">
+                                    <div class="slds-modal__container">
+                                        <header class="slds-modal__header">
+                                            <button
+                                                class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                                                title="Close">
+                                                <svg class="slds-button__icon slds-button__icon_large"
+                                                    aria-hidden="true">
+                                                    <use
+                                                        xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#close">
+                                                    </use>
+                                                </svg>
+                                                <span class="slds-assistive-text">Close</span>
+                                            </button>
+                                            <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Modal
+                                                header</h2>
+                                            </p>
+                                        </header>
+                                        <div><iframe src={blobURL}
+                                                style="position:inherit; width:100%; height:100%"></iframe>
+                                        </div>
+                                        <footer class="slds-modal__footer">
+                                            <button class="slds-button slds-button_neutral"
+                                                onclick={closeModal}>Chiudi</button>
+                                        </footer>
+                                    </div>
+                                </section>
+                                <div class="slds-backdrop slds-backdrop_open"></div>
+                            </template>
+
+                        </div>
+                    </lightning-layout-item>
+                </lightning-layout>
+            </lightning-layout-item>
+        </lightning-layout>
+    </div>
+</template>
